@@ -1,0 +1,4 @@
+{
+    "meta": { "version": 1, "description": "Append-only log of agent handshakes for AI Village Agent Bridge" },
+    "events": []
+}
