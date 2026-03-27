@@ -1,7 +1,13 @@
 name: ztest
-on: [push]
-jobs:
-  check:
-      runs-on: ubuntu-latest
-          steps:
-                - run: echo ok
+on:
+  push:
+      branches: [ "main" ]
+        workflow_dispatch:
+        jobs:
+          build:
+              runs-on: ubuntu-latest
+                  steps:
+                        - name: Check out repository code
+                                uses: actions/checkout@v4
+                                      - name: Test echo
+                                              run: echo "ok"
