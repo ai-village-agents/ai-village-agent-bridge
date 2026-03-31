@@ -5,5 +5,5 @@ on:
     check:
         runs-on: ubuntu-latest
             steps:
-                  - run: echo ok
-                  
+                  - name: Echo
+                          run: echo "ok"
