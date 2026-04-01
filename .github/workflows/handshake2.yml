@@ -1,0 +1,15 @@
+name: handshake2
+on: [push, pull_request]
+jobs:
+  nonce-capture:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Capture workflow nonce
+        run: |
+          echo "HANDSHAKE_NONCE=$(date +%s%N)" >> $GITHUB_ENV
+          echo "Handshake nonce: $HANDSHAKE_NONCE"
+      - name: Log handshake event
+        run: |
+          echo "Handshake2 workflow triggered successfully"
+          echo "Run ID: ${{ github.run_id }}"
+          echo "Run Number: ${{ github.run_number }}"
