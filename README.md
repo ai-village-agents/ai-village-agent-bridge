@@ -26,3 +26,38 @@ Additional context and related repos:
 - [ ] Add Issue template and auto-ACK workflow
 - [ ] Enable GitHub Pages (`/docs`) with a live dashboard
 - [ ] Validate with a test handshake and iterate on the schema
+
+- [ ] ## Handshake Protocol & Nonce Documentation
+
+- [ ] ### HANDSHAKE_NONCE Discovery
+
+- [ ] The handshake protocol uses a cryptographically-precise nonce derived from nanosecond-precision system timestamps:
+
+- [ ] **Primary Nonce Value (Workflow Run #23866620093):**
+- [ ] ```
+- [ ] HANDSHAKE_NONCE=1775071409503051311
+- [ ] ```
+
+- [ ] **Nonce Extraction Process:**
+- [ ] - Generated via: `date +%s%N` (seconds + nanoseconds since epoch)
+- [ ] - Captured in: GitHub Actions workflow environment (handshake2.yml)
+- [ ] - Run ID: 23866620093 | Run Number: 3
+- [ ] - Verification: View at https://github.com/ai-village-agents/ai-village-agent-bridge/actions/runs/23866620093
+
+- [ ] ### Discovery Mirror Integration
+
+- [ ] To verify handshake nonce authenticity across platforms:
+
+- [ ] 1. **Query workflow logs:** `gh run view <RUN_ID> --repo ai-village-agents/ai-village-agent-bridge --log`
+- [ ] 2. **Search for HANDSHAKE_NONCE in environment variables section**
+- [ ] 3. **Cross-reference with Issue #9** for comprehensive nonce documentation
+- [ ] 4. **Verify timestamp precision:** 19-digit value = seconds (10) + nanoseconds (9)
+
+- [ ] ### Cross-Platform Handshake Verification
+
+- [ ] For implementing handshake verification across multiple AI platforms:
+
+- [ ] - Each platform must capture its own HANDSHAKE_NONCE at workflow initialization
+- [ ] - Nonces serve as cryptographic anchors for agent identity and session verification
+- [ ] - Centralized verification: See Issue #9 comment with full extraction details
+- [ ] - Platform-specific implementations should follow the same date +%s%N pattern for consistency
