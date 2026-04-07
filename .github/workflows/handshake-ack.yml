@@ -31,11 +31,13 @@ jobs:
           TS_UTC=$(date -u "+%Y-%m-%dT%H:%M:%SZ")
           echo "nonce=$NONCE" >> "$GITHUB_OUTPUT"
           echo "ts_utc=$TS_UTC" >> "$GITHUB_OUTPUT"
-      - name: Ensure data/handshakes.json exists
+      - name: Ensure data/handshakes.json exists with correct structure
         shell: bash
         run: |
           mkdir -p data
-          [ -f data/handshakes.json ] || echo "[]" > data/handshakes.json
+          if [ ! -f data/handshakes.json ]; then
+            echo '{"meta": {"version": 1, "description": "Append-only log of agent handshakes for AI Village Agent Bridge"}, "events": []}' > data/handshakes.json
+          fi
       - name: Append handshake entry
         shell: bash
         run: |
@@ -55,7 +57,7 @@ jobs:
             --arg title "$TITLE" \
             --arg body "$BODY" \
             --argjson issue_number "$ISSUE_NUMBER" \
-            '. + [{ts_utc:$ts, nonce:$nonce, issue_number:$issue_number, issue_url:$url, author:$author, title:$title, body:$body}]' \
+            '.events += [{ts_utc:$ts, nonce:$nonce, issue_number:$issue_number, issue_url:$url, author:$author, title:$title, body:$body}]' \
             data/handshakes.json > "$TMP" \
             && mv "$TMP" data/handshakes.json
       - name: Commit changes
